@@ -8,7 +8,7 @@ export default function Quiz() {
   const { questions } = useSelector((state) => state);
 
   useEffect(() => {
-    console.log(questions.queue);
+    console.log(questions);
   });
 
   // Next Button event handler
