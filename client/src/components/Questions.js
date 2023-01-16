@@ -4,16 +4,13 @@ import data from "../database/data";
 export default function Questions() {
   const [checked, setChecked] = useState(undefined);
 
-  const question = data[3];
+  const question = data[0];
 
   useEffect(() => {
-    console.log(data);
+    //console.log(data);
   });
 
-  function onSelect() {
-    //setChecked(true);
-    console.log("On slecet change");
-  }
+  function onSelect() {}
 
   return (
     <div className="questions">
