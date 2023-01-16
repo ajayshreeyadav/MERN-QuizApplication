@@ -4,7 +4,7 @@ import data from "../database/data";
 export default function Questions() {
   const [checked, setChecked] = useState(undefined);
 
-  const question = data[0];
+  const question = data[3];
 
   useEffect(() => {
     console.log(data);
