@@ -11,7 +11,7 @@ export default function Questions() {
     (state) => state.questions.queue[state.questions.trace]
   );
   useEffect(() => {
-    console.log(questions);
+    //console.log(questions);
   });
 
   function onSelect() {}
