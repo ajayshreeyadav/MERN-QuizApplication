@@ -1,29 +1,72 @@
+import Question from '../models/questionSchema.js';
+import Results from '../models/resultSchema.js';
+import questions, { answers } from '../database/data.js';
 // Get all questions
 export async function getQuestions(req, res) {
-  res.json('Questions API get request');
+  try {
+    const q = await Question.find();
+    res.json(q);
+  } catch (error) {
+    res.json({ error });
+  }
 }
 
 // Insert all questions
 export async function insertQuestions(req, res) {
-  res.json('Questions API post request');
+  try {
+    Question.insertMany(
+      { questions: questions, answers: answers },
+      function (err, data) {
+        res.json({ Message: 'Data Saved Successfully..!' });
+      }
+    );
+  } catch (error) {
+    res.json({ error });
+  }
 }
 
 // Delete all questions
 export async function dropQuestions(req, res) {
-  res.json('Questions API delete request');
+  try {
+    await Question.deleteMany();
+    res.json({ Message: 'Questions Deleted Successfully..!' });
+  } catch (error) {
+    res.json({ error });
+  }
 }
 
 // Get all result
 export async function getResult(req, res) {
-  res.json('Result API get request');
+  try {
+    const r = await Results.find();
+    res.json(r);
+  } catch (error) {
+    res.json({ error });
+  }
 }
 
 // Insert all result
 export async function insertResult(req, res) {
-  res.json('Result API post request');
+  try {
+    const { username, result, attempts, points, achived } = req.body;
+    if (!username && !result) throw new Error('Data Not Provided..!');
+    Results.create(
+      { username, result, attempts, points, achived },
+      function (err, data) {
+        res.json({ Message: 'Result Saved Successfully..!' });
+      }
+    );
+  } catch (error) {
+    res.json({ error });
+  }
 }
 
 // Delete all result
 export async function dropResult(req, res) {
-  res.json('Result API delete request');
+  try {
+    await Results.deleteMany();
+    res.json({ Message: 'Result Deleted Successfully..!' });
+  } catch (error) {
+    res.json({ error });
+  }
 }
