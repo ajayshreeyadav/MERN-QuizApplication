@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Questions from "./Questions";
-import { MoveNextQuestion, MovePrevQuestion } from "../hooks/fetchQuestion";
-import { PushAnswer } from "../hooks/setResult";
+import React, { useEffect, useState } from 'react';
+import Questions from './Questions';
+import { MoveNextQuestion, MovePrevQuestion } from '../hooks/fetchQuestion';
+import { PushAnswer } from '../hooks/setResult';
 
 // Import Redux store
-import { useSelector, useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 export default function Quiz() {
   const [check, setChecked] = useState(undefined);
 
-  const { queue, trace } = useSelector((state) => state.questions);
-  const result = useSelector((state) => state.result.result);
+  const { queue, trace } = useSelector(state => state.questions);
+  const result = useSelector(state => state.result.result);
   const dispatch = useDispatch();
 
   // Next Button event handler
@@ -36,13 +36,12 @@ export default function Quiz() {
   }
 
   function onChecked(check) {
-    console.log(check);
     setChecked(check);
   }
 
   // finish exam after last question
   if (result.length && result.length >= queue.length) {
-    return <Navigate to={"/result"} replace={true}></Navigate>;
+    return <Navigate to={'/result'} replace={true}></Navigate>;
   }
   return (
     <div className="container">
