@@ -13,14 +13,9 @@ export default function Quiz() {
   const result = useSelector((state) => state.result.result);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(result);
-  });
-
   // Next Button event handler
   function onNext() {
-    console.log("On");
-    if (trace < queue.length - 1) {
+    if (trace < queue.length) {
       // update the trace value by 1 using MoveNextAction
       dispatch(MoveNextQuestion());
 
@@ -29,10 +24,11 @@ export default function Quiz() {
         dispatch(PushAnswer(check));
       }
     }
+    // reset the value of the checked variables
+    setChecked(undefined);
   }
   // Prev button event handler
   function onPrev() {
-    console.log("On");
     if (trace > 0) {
       // update the trace value by 1 using MovePrevAction
       dispatch(MovePrevQuestion());
@@ -56,9 +52,13 @@ export default function Quiz() {
       <Questions onChecked={onChecked} />
 
       <div className="grid">
-        <button className="btn prev" onClick={onPrev}>
-          Prev
-        </button>
+        {trace > 0 ? (
+          <button className="btn prev" onClick={onPrev}>
+            Prev
+          </button>
+        ) : (
+          <div></div>
+        )}
         <button className="btn next" onClick={onNext}>
           Next
         </button>

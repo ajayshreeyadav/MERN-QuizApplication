@@ -61,3 +61,5 @@ export default [
     options: ["::", "??", "&&"],
   },
 ];
+
+export const answers = [0, 2, 2, 2, 2, 0, 2, 2, 0, 2];
