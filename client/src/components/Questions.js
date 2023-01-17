@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Custom Hook
 import { useFetchQuestion } from "../hooks/fetchQuestion";
+import { updateResult } from "../hooks/setResult";
 
-export default function Questions() {
+export default function Questions({ onChecked }) {
   const [checked, setChecked] = useState(undefined);
+  const { trace } = useSelector((state) => state.questions);
   const [{ isLoading, apiData, serverError }] = useFetchQuestion();
 
   const questions = useSelector(
     (state) => state.questions.queue[state.questions.trace]
   );
-  useEffect(() => {
-    //console.log(questions);
-  });
+  const dispatch = useDispatch();
 
-  function onSelect() {}
+  useEffect(() => {
+    dispatch(updateResult({ trace, checked }));
+  }, [checked]);
+
+  function onSelect(i) {
+    onChecked(i);
+    setChecked(i);
+  }
 
   if (isLoading) return <h3 className="text-light">isLoading</h3>;
   if (serverError)
@@ -33,7 +40,7 @@ export default function Questions() {
               name="options"
               value={false}
               id={`q${i}-option`}
-              onChange={onSelect}
+              onChange={() => onSelect(i)}
             />
             <label className="text-primary" htmlFor={`q${i}-option`}>
               {q}
